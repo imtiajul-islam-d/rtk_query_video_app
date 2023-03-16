@@ -7,7 +7,8 @@ import Video from "./Video";
 export default function Videos() {
     const [request, setRequest] = useState(true);
   const { data: videos, isLoading, isError } = useGetVideosQuery(undefined, {
-    skip: request
+    skip: request,
+    // pollingInterval: 3000
   });
   useEffect(() => {
     setRequest(false)
