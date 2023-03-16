@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetVideoQuery } from "../../features/api/apiSlice";
 import Error from "../ui/Error";
 import DescriptionLoader from "../ui/loaders/DescriptionLoader";
@@ -9,14 +9,16 @@ import RelatedVideos from "../video/related/RelatedVideos";
 import RelatedVideoLoader from "./../ui/loaders/RelatedVideoLoader";
 
 export default function Video() {
+  const navigate = useNavigate();
   const { videoId } = useParams();
   const {
     isLoading,
     data: video,
     isError,
-  } = useGetVideoQuery(videoId, {
-    refetchOnMountOrArgChange: 5,
-  });
+  } = useGetVideoQuery(videoId);
+  // , {
+  //   refetchOnMountOrArgChange: 5,
+  // }
   let content = null;
   if (isLoading) {
     content = (
@@ -32,7 +34,7 @@ export default function Video() {
     content = (
       <>
         <Player video={video} />
-        <Description video={video} />
+        <Description navigate={navigate} video={video} />
       </>
     );
   }
