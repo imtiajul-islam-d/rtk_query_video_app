@@ -8,13 +8,13 @@ export default function Description({ navigate, video }) {
   const { id, title, date, description } = video;
   const [deleteVideo, { isSuccess }] = useDeleteVideoMutation();
   const handleDeleteVideo = (vid) => {
-    deleteVideo(vid);
+    if (vid) deleteVideo(vid);
   };
   useEffect(() => {
     if (isSuccess) {
       navigate("/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
   return (
     <div>
       <h1 className="text-lg font-semibold tracking-tight text-slate-800">
